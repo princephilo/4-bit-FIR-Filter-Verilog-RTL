@@ -1,6 +1,6 @@
-# 4-Bit FIR Filter (Verilog RTL & Cadence Innovus Implementation)
+# 4-Bit FIR Filter (Verilog RTL & LibreLane ASIC Implementation)
 
-A 4-tap, 4-bit Finite Impulse Response (FIR) Filter implemented in Verilog RTL, fully simulated and implemented using Cadence Innovus / ASIC Physical Design flow.
+A 4-tap, 4-bit Finite Impulse Response (FIR) Filter implemented in Verilog RTL, fully simulated and implemented using the **LibreLane / OpenROAD** open-source ASIC physical design flow on the **SkyWater 130nm (sky130A) PDK**.
 
 ---
 
@@ -37,10 +37,11 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 │       ├── fir_schematic.svg      # RTL Schematic Diagram (SVG Vector)
 │       └── fir_schematic.dot      # Graphviz DOT file for schematic
 ├── physical_design/
-│   ├── innovus/
-│   │   ├── innovus.png            # Cadence Innovus physical design layout result
-│   │   └── run_innovus.tcl        # Cadence Innovus automation script
-│   └── librelane/                 # Open-Source ASIC Physical Design outputs
+│   └── librelane/                 # LibreLane / OpenROAD ASIC Physical Design outputs
+│       ├── gds/fir.gds            # GDSII Layout File
+│       ├── def/fir.def            # DEF Layout File
+│       ├── sdc/fir.sdc            # SDC Constraints File
+│       └── layout.png             # Physical Layout Render Image
 └── README.md                      # Project documentation
 ```
 
@@ -49,7 +50,6 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 ## 🎨 RTL Schematic Diagram
 
 ![RTL Schematic](synthesis/schematic/fir_schematic.svg)
-
 
 ---
 
@@ -71,32 +71,37 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 
 ---
 
-## 🛠 Cadence Innovus ASIC Physical Design
+## 🛠 LibreLane ASIC Physical Design
 
-### Physical Design Layout (`physical_design/innovus/innovus.png`):
-![Cadence Innovus Layout](physical_design/innovus/innovus.png)
+### Physical Design Layout (`physical_design/librelane/layout.png`):
+![LibreLane Layout](physical_design/librelane/layout.png)
 
-The physical design flow was executed using **Cadence Innovus Implementation System**:
+The physical design flow was executed using **LibreLane** targeting the **SkyWater 130nm (sky130A) PDK**:
 
-1. **Synthesis / Import**: Netlist import and gate-level synthesis binding.
+1. **Synthesis (Yosys)**: Gate-level synthesis and technology mapping.
 2. **Floorplanning & Power Planning**: Core aspect ratio configuration, power ring and stripe generation ($VDD$ / $VSS$).
-3. **Placement**: Standard cell placement with setup/hold timing constraints.
+3. **Placement**: Standard cell placement with setup/hold timing optimization.
 4. **Clock Tree Synthesis (CTS)**: Low-skew clock tree insertion.
-5. **Routing**: NanoRoute global & detail routing.
-6. **Signoff (DRC/LVS & STA)**: Static timing analysis and layout verification.
+5. **Routing (OpenROAD / Detailed Routing)**: Global & detailed routing.
+6. **Signoff Verification**: DRC (Design Rule Check), LVS (Layout Vs. Schematic), and Antenna checks.
 
 ---
 
-## 🚀 How to Run Simulation
+## 🚀 How to Run
 
-Using **Icarus Verilog** or any standard IEEE 1364 simulator:
-
+### Simulation (Icarus Verilog):
 ```bash
 # Compile design and testbench
 iverilog -o simulation/fir_sim rtl/fir.v verification/fir_tb.v
 
 # Run simulation
 vvp simulation/fir_sim
+```
+
+### Physical Design Flow (LibreLane):
+```bash
+cd librelane
+librelane fir/config.yaml
 ```
 
 ---
