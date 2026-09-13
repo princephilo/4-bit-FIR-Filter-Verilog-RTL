@@ -27,23 +27,18 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 ├── fir.v               # Top-level 4-Bit FIR Filter Verilog RTL Module
 ├── fir_tb.v            # Testbench module for functional verification
 ├── fir_synth.v         # Synthesized Netlist Module
-├── fir_compact.svg     # High-Level High-Block RTL Schematic Diagram
-├── fir_compact.dot     # Graphviz DOT file for compact schematic
-├── fir_schematic.svg   # Full Gate-Level RTL Schematic Diagram (SVG Vector)
-├── fir_schematic.png   # Gate-Level RTL Schematic Diagram (PNG Image)
+├── fir_compact.svg     # RTL Schematic Diagram (SVG Vector)
+├── fir_compact.dot     # Graphviz DOT file for RTL schematic
 ├── README.md           # Project documentation
 └── results/            # Cadence Innovus ASIC Physical Design outputs & reports
 ```
 
 ---
 
-## 🎨 RTL Schematic Diagrams
+## 🎨 RTL Schematic Diagram
 
-### High-Level Block Schematic
-![High-Level FIR Filter Schematic](fir_compact.svg)
+![RTL Schematic](fir_compact.svg)
 
-### Full Gate-Level Schematic
-![FIR Filter Full Schematic](fir_schematic.svg)
 
 
 
