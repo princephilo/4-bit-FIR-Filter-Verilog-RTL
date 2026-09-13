@@ -14,6 +14,8 @@ initial begin
 end
 
 initial begin
+    $dumpfile("fir.vcd");
+    $dumpvars(0, fir_tb);
 
     h0 = 4'd1;
     h1 = 4'd2;
@@ -34,6 +36,7 @@ initial begin
     #200;
     $finish;
 end
+
 initial begin
     $monitor("Time=%0t | rst=%b | x=%d | y=%d",
              $time, rst, x, y);

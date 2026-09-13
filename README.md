@@ -24,33 +24,27 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 
 ```
 .
-├── fir.v               # Top-level 4-Bit FIR Filter Verilog RTL Module
-├── fir_tb.v            # Testbench module for functional verification
-├── fir_synth.v         # Synthesized Netlist Module
-├── fir_compact.svg     # RTL Schematic Diagram (SVG Vector)
-├── fir_compact.dot     # Graphviz DOT file for RTL schematic
-├── README.md           # Project documentation
-└── results/            # Cadence Innovus ASIC Physical Design outputs & reports
+├── rtl/
+│   └── fir.v                      # Top-level 4-Bit FIR Filter Verilog RTL Module
+├── verification/
+│   └── fir_tb.v                   # Testbench module for functional verification
+├── simulation/
+│   ├── fir.vcd                    # VCD waveform dump file
+│   └── waveform.png               # Simulation waveform output graph
+├── synthesis/
+│   └── fir_synth.v                # Synthesized Netlist Module
+├── physical_design/
+│   └── innovus/
+│       └── innovus.png            # Cadence Innovus physical design layout result
+└── README.md                      # Project documentation
 ```
 
 ---
 
-## 🎨 RTL Schematic Diagram
+## 🌊 Waveform & Simulation Output
 
-![RTL Schematic](fir_compact.svg)
-
-
-
-
----
-
-## 💻 Simulation & Verification
-
-The design is verified with a testbench applying coefficients $h = [1, 2, 2, 1]$ and sequential input samples $x$:
-
-### Testbench Parameters:
-- **Coefficients**: $h_0=1, h_1=2, h_2=2, h_3=1$
-- **Clock Period**: 100 ns (50 ns HIGH / 50 ns LOW)
+### Waveform Result (`simulation/waveform.png`):
+![Simulation Waveform](simulation/waveform.png)
 
 ### Expected Output Sequence:
 
@@ -65,7 +59,10 @@ The design is verified with a testbench applying coefficients $h = [1, 2, 2, 1]$
 
 ---
 
-## 🛠 Cadence Innovus Implementation & Results
+## 🛠 Cadence Innovus ASIC Physical Design
+
+### Physical Design Layout (`physical_design/innovus/innovus.png`):
+![Cadence Innovus Layout](physical_design/innovus/innovus.png)
 
 The physical design flow was executed using **Cadence Innovus Implementation System**:
 
@@ -76,8 +73,6 @@ The physical design flow was executed using **Cadence Innovus Implementation Sys
 5. **Routing**: NanoRoute global & detail routing.
 6. **Signoff (DRC/LVS & STA)**: Static timing analysis and layout verification.
 
-> **Outputs & Layout Reports**: Final GDSII / DEF files, timing reports, power reports, and area summary are included in the repository.
-
 ---
 
 ## 🚀 How to Run Simulation
@@ -86,10 +81,10 @@ Using **Icarus Verilog** or any standard IEEE 1364 simulator:
 
 ```bash
 # Compile design and testbench
-iverilog -o fir_sim fir.v fir_tb.v
+iverilog -o simulation/fir_sim rtl/fir.v verification/fir_tb.v
 
 # Run simulation
-vvp fir_sim
+vvp simulation/fir_sim
 ```
 
 ---
