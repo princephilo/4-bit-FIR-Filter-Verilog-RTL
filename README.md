@@ -32,12 +32,24 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 │   ├── fir.vcd                    # VCD waveform dump file
 │   └── waveform.png               # Simulation waveform output graph
 ├── synthesis/
-│   └── fir_synth.v                # Synthesized Netlist Module
+│   ├── fir_synth.v                # Synthesized Netlist Module
+│   └── schematic/
+│       ├── fir_schematic.svg      # RTL Schematic Diagram (SVG Vector)
+│       └── fir_schematic.dot      # Graphviz DOT file for schematic
 ├── physical_design/
-│   └── innovus/
-│       └── innovus.png            # Cadence Innovus physical design layout result
+│   ├── innovus/
+│   │   ├── innovus.png            # Cadence Innovus physical design layout result
+│   │   └── run_innovus.tcl        # Cadence Innovus automation script
+│   └── librelane/                 # Open-Source ASIC Physical Design outputs
 └── README.md                      # Project documentation
 ```
+
+---
+
+## 🎨 RTL Schematic Diagram
+
+![RTL Schematic](synthesis/schematic/fir_schematic.svg)
+
 
 ---
 
