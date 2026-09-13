@@ -24,11 +24,21 @@ $$y[n] = h_0 \cdot x[n] + h_1 \cdot x[n-1] + h_2 \cdot x[n-2] + h_3 \cdot x[n-3]
 
 ```
 .
-├── fir.v        # Top-level 4-Bit FIR Filter Verilog RTL Module
-├── fir_tb.v     # Testbench module for functional verification
-├── README.md    # Project documentation
-└── results/     # Cadence Innovus ASIC Physical Design outputs & reports
+├── fir.v               # Top-level 4-Bit FIR Filter Verilog RTL Module
+├── fir_tb.v            # Testbench module for functional verification
+├── fir_synth.v         # Synthesized Netlist Module
+├── fir_schematic.svg   # RTL Schematic Diagram (SVG Vector)
+├── fir_schematic.png   # RTL Schematic Diagram (PNG Image)
+├── README.md           # Project documentation
+└── results/            # Cadence Innovus ASIC Physical Design outputs & reports
 ```
+
+---
+
+## 🎨 RTL Schematic Diagram
+
+![FIR Filter Schematic](fir_schematic.svg)
+
 
 ---
 
